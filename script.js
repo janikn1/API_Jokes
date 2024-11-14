@@ -67,7 +67,7 @@ async function clickedon() {
     let category = document.querySelector('#selCat').value;
     let number = parseInt(document.querySelector('#selNum').value);
     let jokesTable = document.querySelector('#jokes');
-    let url = `http://127.0.0.1:5000/?language=${language}&category=${category}&number=${number}`;
+    let url = `https://cs330-work.onrender.com/?language=${language}&category=${category}&number=${number}`;
 
     if (!language || !category || !number) {
         jokesTable.innerHTML = '<p class="error">Please select language, category, and number of jokes.</p>';

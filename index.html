@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <title>Flask for Fun</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <script src="script.js"></script>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <div class="section">
+        <h1 class="title">Pick the language, the category and the number of jokes to hear</h1>
+        <div class="container">
+            <form class="form" onsubmit="event.preventDefault()">
+                <div class="fixed-grid has-3-cols">
+                    <div class="grid">
+                        <div class="field cell" id="fieldLanguage">
+                            <label>Language</label>
+                            <div class="control select is-fullwidth">
+                                <select name="language" id="selLang">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field cell" id="fieldCategory">
+                            <label>Category</label>
+                            <div class="control select is-fullwidth">
+                                <select name="category" id="selCat">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field cell" id="fieldNumber">
+                            <label>Number</label>
+                            <div class="control select is-fullwidth">
+                                <select name="number" id="selNum">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="cell is-col-span-3">
+                            <button id="btnAmuse" onclick="clickedon()" class="button is-primary is-fullwidth"
+                                value="Tell me a joke">Amuse me</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="section">
+        <div class="container" id="jokes">
+
+        </div>
+    </div>
+</body>
+
+</html>

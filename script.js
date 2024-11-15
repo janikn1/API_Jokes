@@ -27,7 +27,8 @@ function populateLanguageDropdown() {
     for (let code in languages) {
         const option = document.createElement('option');
         option.value = code;
-        option.text = languages[code];
+        
+        option.text = languages[code].charAt(0) + languages[code].slice(1).toLowerCase();
         languageSelect.appendChild(option);
     }
 }
@@ -60,18 +61,32 @@ function populateNumberDropdown() {
         option.text = i;
         numberSelect.appendChild(option);
     }
+    const option = document.createElement('option');
+    option.value = "All";
+    option.text = "All";
+    numberSelect.appendChild(option);
 }
 
 async function clickedon() {
     let language = document.querySelector('#selLang').value;
     let category = document.querySelector('#selCat').value;
     let number = parseInt(document.querySelector('#selNum').value);
+    let jokeid = document.querySelector('#jokeId').value;
     let jokesTable = document.querySelector('#jokes');
-    let url = `https://cs330-work.onrender.com/?language=${language}&category=${category}&number=${number}`;
+    let url = "";
 
-    if (!language || !category || !number) {
+    if (jokeid == ""){
+        if (!language || !category || !number) {
         jokesTable.innerHTML = '<p class="error">Please select language, category, and number of jokes.</p>';
         return;
+        }
+    }
+    jokeid = parseInt(jokeid)
+
+    if (jokeid){
+        url = `http://127.0.0.1:5000/?jokeid=${jokeid}`;
+    }else{
+        url = `http://127.0.0.1:5000/?language=${language}&category=${category}&number=${number}`;
     }
 
     jokesTable.innerHTML = '';
@@ -79,16 +94,16 @@ async function clickedon() {
     try {
         console.log(url)
         let result = await getData(url);
-
-        if (result && result.jokes && result.jokes.length > 0) {
-            result.jokes.forEach(joke => {
+        console.log(result)
+        if (result.jokes) {
+            result.jokes.forEach((joke) => {
                 let jokeArticle = document.createElement("article");
                 jokeArticle.classList.add("message", "is-info");
-
+    
                 let jokeDiv = document.createElement("div");
                 jokeDiv.classList.add("message-body");
                 jokeDiv.innerHTML = joke;
-
+    
                 jokeArticle.appendChild(jokeDiv);
                 jokesTable.appendChild(jokeArticle);
             });
@@ -99,19 +114,17 @@ async function clickedon() {
         console.error("Error fetching jokes:", error);
         jokesTable.innerHTML = '<p class="error">Error fetching jokes. Please try again later.</p>';
     }
+    document.querySelector('#jokeform').reset();
 }
 
 async function getData(url) {
     try {
         const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Network response was not ok: ${response.statusText}`);
-        }
         const data = await response.json();
         return data;
     } catch (error) {
         console.error('Error in getData:', error);
-        return null;
+        return error
     }
 }
 
@@ -121,3 +134,4 @@ window.onload = function() {
     populateCategoryDropdown();
     populateNumberDropdown();
 };
+

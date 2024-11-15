@@ -84,9 +84,9 @@ async function clickedon() {
     jokeid = parseInt(jokeid)
 
     if (jokeid){
-        url = `http://127.0.0.1:5000/?jokeid=${jokeid}`;
+        url = `https://cs330-work.onrender.com/?jokeid=${jokeid}`;
     }else{
-        url = `http://127.0.0.1:5000/?language=${language}&category=${category}&number=${number}`;
+        url = `https://cs330-work.onrender.com/?language=${language}&category=${category}&number=${number}`;
     }
 
     jokesTable.innerHTML = '';
